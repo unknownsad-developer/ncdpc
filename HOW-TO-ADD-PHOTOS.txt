@@ -1,0 +1,49 @@
+HOW TO ADD PHOTOS (GitHub Pages)
+================================
+You do not edit any code. You only put photo folders into the repository.
+The website reads the folders by itself. One folder = one event.
+
+BEFORE YOU START (once)
+  Your repository must be PUBLIC and GitHub Pages must be switched on:
+  repository > Settings > Pages > Build from a branch > main > / (root) > Save.
+  Your site is then at  https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/
+
+ADD A NEW EVENT
+  1. On your computer, make a folder and name it with the date first:
+         2026-10-18 Eid Photo Walk
+     Format: YEAR-MONTH-DAY, a space, then the event name.
+     The website shows "Eid Photo Walk" and the date, and puts newest events first.
+  2. Put that event's photos inside the folder. Any file names are fine.
+     Make each photo about 1600 pixels on the long side first (see below).
+  3. On github.com open your repository, then open the folder  assets > photos.
+  4. Click  Add file > Upload files.
+  5. Drag the whole event folder (not the single photos) into the page.
+     GitHub keeps the folder. Wait until every file has finished loading.
+  6. Type a short message such as "Add Eid Photo Walk" and press  Commit changes.
+  7. Wait 1 to 2 minutes, then reload your website. The new folder appears on Home and Photos.
+
+ADD MORE PHOTOS TO AN EVENT
+  Open that event's folder on github.com (assets > photos > the event), then
+  Add file > Upload files and drag the new photos in. Commit.
+
+REMOVE A PHOTO OR AN EVENT
+  Open the file on github.com, click the three dots (...) > Delete file, then commit.
+  To remove a whole event: open its folder, click the three dots at the top right,
+  choose Delete directory, then commit.
+
+CHANGE A COVER PHOTO
+  The cover is the first photo in the folder (by file name). To choose a different cover,
+  rename that photo so it sorts first, for example  00-cover.jpg  .
+
+LIMITS TO KNOW
+  - GitHub's upload page takes about 100 files at a time. For a bigger event, upload in
+    batches of 100 into the same folder.
+  - Each file must be under 25 MB, but you should make photos much smaller (about 300 KB to
+    1 MB each) so the website stays fast. GitHub also asks that a whole repository stays under
+    about 1 GB. Free tools to shrink photos: squoosh.app, or "resize" in your phone's share menu.
+  - Photos must sit directly inside the event folder (no folders inside folders).
+  - Allowed endings: .jpg .jpeg .png .webp .gif .avif
+  - Uploaded photos can take 1 to 2 minutes to show. If a folder does not appear, wait and reload.
+  - Photos on a public repository are public. Only upload photos you may show.
+  - If you use your own domain instead of yourname.github.io, open assets/js/events-data.js
+    and follow the note at the top.

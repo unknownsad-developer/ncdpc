@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel | NCD Photography Club</title>
+<meta name="description" content="Meet the heads and members who run NCD Photography Club.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0F4C8A">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="index.html" aria-label="NCD Photography Club, home">
+      <img src="assets/logo.png" width="40" height="40" alt="" class="brand-logo">
+      <span>NCD Photography Club</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="photos.html">Photos</a>
+      <a href="panel.html" aria-current="page">Panel</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn" href="join.html">Join the club</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+    <section class="pagehead">
+      <div class="wrap">
+        <p class="eyebrow" id="panelEyebrow">Panel</p>
+        <h1 id="panelTitle">The people behind the shutter.</h1>
+        <p class="lead" id="panelIntro"></p>
+      </div>
+    </section>
+    <section class="sec" style="padding-top:24px">
+      <div class="wrap">
+        <!-- Filled in by assets/js/panel.js from assets/js/panel-data.js. Edit that file, not this one. -->
+        <div class="panel-grid" id="panelGrid"></div>
+        <noscript><p class="empty">Please turn on JavaScript to see the panel.</p></noscript>
+      </div>
+    </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <span class="tagline">Look closer. Shoot together.</span>
+      <small>© 2026 NCD Photography Club</small>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <a href="photos.html">Photos</a><a href="panel.html">Panel</a><a href="contact.html">Contact</a>
+    </div>
+    <div>
+      <h4>Find us</h4>
+      <span>photoclub@example.com</span>
+      <span>@openshutter.club</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/panel-data.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/panel.js"></script>
+</body>
+</html>

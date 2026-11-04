@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photos | NCD Photography Club</title>
+<meta name="description" content="Photos from NCD photo walks, workshops and exhibitions.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0F4C8A">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="index.html" aria-label="NCD Photography Club, home">
+      <img src="assets/logo.png" width="40" height="40" alt="" class="brand-logo">
+      <span>NCD Photography Club</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="photos.html" aria-current="page">Photos</a>
+      <a href="panel.html">Panel</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn" href="join.html">Join the club</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+    <section class="pagehead">
+      <div class="wrap">
+        <p class="eyebrow">Photos</p>
+        <h1>Our work, event by event.</h1>
+        <p class="lead" id="pageIntro">Frames from our walks, workshops and exhibitions. Open an event folder to see its photos.</p>
+      </div>
+    </section>
+    <section class="sec" style="padding-top:8px">
+      <div class="wrap">
+        <p class="count" id="galCount" aria-live="polite"></p>
+        <!-- Event folders are filled in by assets/js/site.js. Each folder in assets/photos is one event. -->
+        <div id="gallery" aria-busy="true"></div>
+      </div>
+    </section>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button class="lb-close" id="lbClose" type="button">Close</button>
+  <img id="lbImg" alt="">
+  <p class="lb-title" id="lbTitle"></p>
+  <div class="lb-row">
+    <button class="lb-nav" id="lbPrev" type="button" aria-label="Previous photo">&larr;</button>
+    <span class="lb-count" id="lbCount"></span>
+    <button class="lb-nav" id="lbNext" type="button" aria-label="Next photo">&rarr;</button>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <span class="tagline">Look closer. Shoot together.</span>
+      <small>© 2026 NCD Photography Club</small>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <a href="photos.html">Photos</a><a href="panel.html">Panel</a><a href="contact.html">Contact</a>
+    </div>
+    <div>
+      <h4>Find us</h4>
+      <span>photoclub@example.com</span>
+      <span>@openshutter.club</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/events-data.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NCD Photography Club</title>
+<meta name="description" content="NCD Photography Club is a photography club for people who want to see better and shoot more. Photo walks, critique nights, workshops and an annual exhibition. All skill levels welcome.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0F4C8A">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="index.html" aria-label="NCD Photography Club, home">
+      <img src="assets/logo.png" width="40" height="40" alt="" class="brand-logo">
+      <span>NCD Photography Club</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="photos.html">Photos</a>
+      <a href="panel.html">Panel</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn" href="join.html">Join the club</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Photography club · all skill levels welcome</p>
+          <h1>Look closer. <span class="b">Shoot together.</span></h1>
+          <p class="lead">NCD Photography Club is a photography club for people who want to see better and shoot more. We walk, shoot, critique and print together, from a first phone snap to a full exhibition.</p>
+          <div class="cta">
+            <a class="btn" href="join.html">Join the club</a>
+            <a class="btn btn-ghost" href="#events">See our photos</a>
+          </div>
+          <p class="note">2026/27 membership is open</p>
+        </div>
+
+        <figure class="vfwrap">
+          <div class="vf" role="img" aria-label="Slideshow of the latest club photos, shown inside a camera viewfinder">
+            <!-- The photos here are filled in by assets/js/site.js (the 6 newest photos across all events). -->
+            <div id="vfSlides"></div>
+            <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+            <div class="vf-focus" id="vfFocus"></div>
+            <div class="vf-hud vf-top" aria-hidden="true"><span>M · RAW</span><span>AF-S</span></div>
+            <div class="vf-hud vf-bottom" aria-hidden="true">
+              <div class="meter" id="vfMeter"><b id="vfMark"></b></div>
+              <div class="vf-read"><span>NCDPC</span><span id="vfCount">00/00</span></div>
+            </div>
+          </div>
+          <figcaption class="vf-cap">
+            <p id="vfCap"></p>
+            <div class="vf-ctl" id="vfCtl"><button class="pause" id="vfPause" type="button">Pause</button></div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="sec alt" id="events">
+      <div class="wrap">
+        <div id="workHead" hidden>
+          <p class="eyebrow">Our work</p>
+          <h2>Photos, event by event.</h2>
+          <p class="lead">Open an event folder to see its photos. Newest events come first.</p>
+        </div>
+        <!-- Event folders are filled in by assets/js/site.js. Each folder in assets/photos is one event. -->
+        <div class="work" id="workGrid" aria-busy="true"></div>
+        <a class="more" id="seeAll" href="photos.html" hidden>See all events</a>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap faq">
+        <div>
+          <p class="eyebrow">Why join</p>
+          <h2>Before you ask.</h2>
+        </div>
+        <div class="qa">
+          <details><summary>Do I need a proper camera?</summary><p>No. A phone is enough for most walks and critiques. We teach composition and light first, and gear later. Members often lend lenses and tripods to each other.</p></details>
+          <details><summary>Is there a membership fee?</summary><p>A small yearly fee covers printing, exhibition costs and shared equipment. If the fee is a problem for you, tell us and we will work something out.</p></details>
+          <details><summary>I am a complete beginner. Is that fine?</summary><p>Yes. Most of us started that way. On every walk, newer members are paired with someone who has been shooting for a while.</p></details>
+          <details><summary>How often do you meet?</summary><p>Photo walks and critique nights run monthly, workshops once a term and the exhibition once a year. Ask us on the Contact page for the next dates.</p></details>
+          <details><summary>Can I submit to the exhibition?</summary><p>Every member can submit up to three frames. A small member panel picks the final forty, and each selected photographer gets help with printing and framing.</p></details>
+          <details><summary>Who owns my photos?</summary><p>You do. We ask for your permission before showing any frame on this site, in print or on social media.</p></details>
+        </div>
+      </div>
+    </section>
+
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button class="lb-close" id="lbClose" type="button">Close</button>
+  <img id="lbImg" alt="">
+  <p class="lb-title" id="lbTitle"></p>
+  <div class="lb-row">
+    <button class="lb-nav" id="lbPrev" type="button" aria-label="Previous photo">&larr;</button>
+    <span class="lb-count" id="lbCount"></span>
+    <button class="lb-nav" id="lbNext" type="button" aria-label="Next photo">&rarr;</button>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <span class="tagline">Look closer. Shoot together.</span>
+      <small>© 2026 NCD Photography Club</small>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <a href="photos.html">Photos</a><a href="panel.html">Panel</a><a href="contact.html">Contact</a>
+    </div>
+    <div>
+      <h4>Find us</h4>
+      <span>photoclub@example.com</span>
+      <span>@openshutter.club</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/events-data.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

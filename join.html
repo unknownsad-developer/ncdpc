@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join the club | NCD Photography Club</title>
+<meta name="description" content="Apply to join NCD Photography Club.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0F4C8A">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="page-join">
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="index.html" aria-label="NCD Photography Club, home">
+      <img src="assets/logo.png" width="40" height="40" alt="" class="brand-logo">
+      <span>NCD Photography Club</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="photos.html">Photos</a>
+      <a href="panel.html">Panel</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn" href="join.html" aria-current="page">Join the club</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+    <section class="pagehead">
+      <div class="wrap">
+        <p class="eyebrow">Join the club</p>
+        <h1>Tell us who you are and what you shoot.</h1>
+        <p class="lead">Fill this in and we will write your application for you. Copy it and send it to the club by email or Instagram message.</p>
+      </div>
+    </section>
+    <section class="sec" style="padding-top:0">
+      <div class="wrap formgrid">
+        <div>
+          <form id="joinForm" novalidate>
+            <div class="row2">
+              <div class="fld"><label for="fName">Your name</label><input id="fName" name="name" type="text" autocomplete="name" required></div>
+              <div class="fld"><label for="fContact">Email or phone</label><input id="fContact" name="contact" type="text" autocomplete="email" required></div>
+            </div>
+            <div class="row2">
+              <div class="fld"><label for="fGear">You shoot with</label>
+                <select id="fGear" name="gear"><option>A phone</option><option>A mirrorless camera</option><option>A DSLR</option><option>A film camera</option><option>Not sure yet</option></select></div>
+              <div class="fld"><label for="fLevel">Experience</label>
+                <select id="fLevel" name="level"><option>Just starting</option><option>Some experience</option><option>Experienced</option></select></div>
+            </div>
+            <div class="fld"><label for="fLike">What do you like to shoot?</label><input id="fLike" name="like" type="text" placeholder="Streets, portraits, birds, anything"></div>
+            <div class="fld"><label for="fMore">Anything else we should know?</label><textarea id="fMore" name="more"></textarea></div>
+            <div><button class="btn" type="submit">Write my application</button></div>
+          </form>
+          <div class="out" id="out" hidden style="margin-top:24px">
+            <p>Copy this message and send it to <strong>photoclub@example.com</strong> or message us on Instagram. This page cannot send it for you.</p>
+            <textarea id="joinOut" readonly aria-label="Your application message"></textarea>
+            <div class="mail"><button class="copy" type="button" data-target="#joinOut">Copy message</button><span class="copied" aria-live="polite"></span></div>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow">What happens next</p>
+          <ol class="steps">
+            <li><span>We reply within a few days with the date of the next photo walk.</span></li>
+            <li><span>Come along as a guest. Any camera works, phones included.</span></li>
+            <li><span>Collect your member card at the next critique night.</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <span class="tagline">Look closer. Shoot together.</span>
+      <small>© 2026 NCD Photography Club</small>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <a href="photos.html">Photos</a><a href="panel.html">Panel</a><a href="contact.html">Contact</a>
+    </div>
+    <div>
+      <h4>Find us</h4>
+      <span>photoclub@example.com</span>
+      <span>@openshutter.club</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>
