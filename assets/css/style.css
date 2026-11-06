@@ -369,3 +369,17 @@ html.theme-anim .theme-btn svg{transition:transform .5s cubic-bezier(.4,0,.2,1),
 .card dd a:hover{color:var(--accent)}
 .apply-card{display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:clamp(22px,4vw,34px);border:1px solid var(--rule)}
 .apply-card p{margin:0}
+
+/* Footer: soft abstract shapes, drawn with a mask so one tint covers all the overlapping circles evenly. */
+footer{position:relative;overflow:hidden;isolation:isolate;--shape:color-mix(in srgb,var(--accent) 9%,transparent)}
+:root[data-theme="dark"] footer{--shape:color-mix(in srgb,var(--accent) 13%,transparent)}
+footer>.wrap{position:relative;z-index:1}
+footer::before,footer::after{content:"";position:absolute;z-index:0;pointer-events:none;background:var(--shape);
+  -webkit-mask:var(--m) no-repeat center/contain;mask:var(--m) no-repeat center/contain}
+footer::before{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 520'%3E%3Ccircle cx='330' cy='125' r='125'/%3E%3Ccircle cx='190' cy='260' r='125'/%3E%3Ccircle cx='330' cy='395' r='125'/%3E%3C/svg%3E");
+  width:400px;height:400px;right:-30px;top:50%;margin-top:-200px;animation:footDrift 18s ease-in-out infinite alternate}
+footer::after{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='100'/%3E%3C/svg%3E");
+  width:220px;height:220px;left:-70px;bottom:-120px;animation:footDrift 24s ease-in-out infinite alternate-reverse}
+@keyframes footDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-18px,14px,0)}}
+@media (max-width:700px){footer::before{width:300px;height:300px;margin-top:-150px;right:-90px}}
+@media (prefers-reduced-motion:reduce){footer::before,footer::after{animation:none}}
