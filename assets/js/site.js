@@ -15,6 +15,8 @@
         number the photos 1.jpg, 2.jpg, 3.jpg ... inside each folder. See README.txt. */
 (function () {
   var FOLDER = 'assets/photos/';
+  var SLIDES = 'assets/slideshow/';                   // photos you choose yourself for the home page slideshow
+  var SLIDES_MAX = 12;                                // the slideshow shows at most this many photos
   var EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp'];   // used by the numbered method
   var PAGE = 48;                                      // photos shown at a time inside an event
   var HOME_FOLDERS = 6;                               // folders shown on the home page
@@ -82,17 +84,27 @@
     if (!g) return Promise.reject(new Error('not github'));
     return fromGithubInner(g).catch(function (e) { e.gh = ghWhy(e, g); throw e; });
   }
-  function fromGithubInner(g) {
-    var key = 'ncd-gh-' + g.owner + '/' + g.repo, cached = null;
+  // every file path in the repository (one GitHub request, remembered for 2 minutes, shared by the whole page)
+  var treePromise = null;
+  function githubTree(g) {
+    if (treePromise) return treePromise;
+    var key = 'ncd-gh2-' + g.owner + '/' + g.repo, cached = null;
     try { cached = JSON.parse(sessionStorage.getItem(key)); } catch (e) {}
-    var tree = cached && Date.now() - cached.t < 120000 ? Promise.resolve(cached.paths)
+    treePromise = cached && Date.now() - cached.t < 120000 ? Promise.resolve(cached.paths)
       : fetch('https://api.github.com/repos/' + g.owner + '/' + g.repo + '/git/trees/' + g.branch + '?recursive=1')
         .then(function (r) { if (!r.ok) throw new Error('github ' + r.status); return r.json(); })
         .then(function (j) {
-          var paths = (j.tree || []).filter(function (x) { return x.type === 'blob' && x.path.indexOf(FOLDER) === 0; }).map(function (x) { return x.path.slice(FOLDER.length); });
+          var paths = (j.tree || []).filter(function (x) { return x.type === 'blob'; }).map(function (x) { return x.path; });
           try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), paths: paths })); } catch (e) {}
           return paths;
         });
+    treePromise.catch(function () { treePromise = null; });   // a failed request may be tried again
+    return treePromise;
+  }
+  function fromGithubInner(g) {
+    var tree = githubTree(g).then(function (all) {
+      return all.filter(function (p) { return p.indexOf(FOLDER) === 0; }).map(function (p) { return p.slice(FOLDER.length); });
+    });
     return tree.then(function (paths) {
       var byDir = {};
       paths.forEach(function (p) {
@@ -176,6 +188,32 @@
       return Promise.resolve(out);
     }
     return loadPhotos(events[0]).then(function (l) { return l.slice().reverse().slice(0, n); });
+  }
+
+  // The home page slideshow. Photos you put in assets/slideshow are shown, in file name order.
+  // Nothing there? Then the newest photos from the events are used, as before.
+  //   1. window.NCD_SLIDESHOW = ['assets/slideshow/a.jpg', ...] in assets/js/events-data.js (any host)
+  //   2. GitHub Pages: every image inside assets/slideshow
+  //   3. other hosts: photos numbered 1.jpg, 2.jpg, 3.jpg ... inside assets/slideshow
+  function slideshowPhotos(events, n) {
+    var manual = Array.isArray(window.NCD_SLIDESHOW) ? window.NCD_SLIDESHOW.filter(function (s) { return typeof s === 'string' && s; }) : [];
+    var chosen;
+    if (manual.length) {
+      chosen = Promise.resolve(manual.map(function (s) { return { src: s, w: 0, h: 0, time: 0 }; }));
+    } else if (githubTarget()) {
+      chosen = githubTree(githubTarget()).then(function (all) {
+        return all.filter(function (p) {
+          var rest = p.slice(SLIDES.length);
+          return p.indexOf(SLIDES) === 0 && rest.indexOf('/') < 0 && rest.charAt(0) !== '.' && IMG_RE.test(rest);
+        }).map(function (p) { return p.slice(SLIDES.length); }).sort(naturalSort)
+          .map(function (f) { return { src: SLIDES + encodeURIComponent(f), w: 0, h: 0, time: 0 }; });
+      }).catch(function () { return []; });
+    } else {
+      chosen = fromNumbers(SLIDES).catch(function () { return []; });
+    }
+    return chosen.then(function (list) {
+      return list.length ? list.slice(0, SLIDES_MAX) : latestPhotos(events, n);
+    });
   }
 
   function makeImg(p, alt, lazy, useThumb) {
@@ -390,10 +428,10 @@
     });
   }
 
-  /* ---------- 6. home page: viewfinder slideshow (latest 6 photos) ---------- */
+  /* ---------- 6. home page: viewfinder slideshow (your photos from assets/slideshow, else the latest 6) ---------- */
   var slidesBox = $('vfSlides');
   if (slidesBox) {
-    getEvents().then(function (events) { return latestPhotos(events, 6); }).then(function (pics) {
+    getEvents().then(function (events) { return slideshowPhotos(events, 6); }).then(function (pics) {
       var ctl = $('vfCtl'), pauseBtn = $('vfPause'), focus = $('vfFocus');
       var meter = $('vfMeter'), mark = $('vfMark');
       for (var t = 0; t <= 12; t++) { var tk = document.createElement('i'); if (t % 3 === 0) tk.className = 'major'; meter.insertBefore(tk, mark); }

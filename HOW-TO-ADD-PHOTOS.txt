@@ -8,6 +8,14 @@ BEFORE YOU START (once)
   repository > Settings > Pages > Build from a branch > main > / (root) > Save.
   Your site is then at  https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/
 
+CHOOSE THE HOME PAGE SLIDESHOW PHOTOS
+  The big slideshow on the home page shows the photos you put in  assets > slideshow  (up to 12,
+  in file name order: 01-..., 02-..., 03-...). Upload them the same way: open assets > slideshow
+  on github.com, Add file > Upload files, drag the photos in, Commit changes.
+  Best size: landscape 4:3, about 1600 x 1200 pixels, under 1 MB each.
+  If that folder has no photos, the slideshow shows the 6 newest event photos instead.
+  Read assets/slideshow/README.txt for details.
+
 ADD A NEW EVENT
   1. On your computer, make a folder and name it with the date first:
          2026-10-18 Eid Photo Walk
