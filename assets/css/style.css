@@ -383,3 +383,25 @@ footer::after{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 @keyframes footDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-18px,14px,0)}}
 @media (max-width:700px){footer::before{width:300px;height:300px;margin-top:-150px;right:-90px}}
 @media (prefers-reduced-motion:reduce){footer::before,footer::after{animation:none}}
+
+/* Gradient backgrounds. The colours are registered properties so they fade smoothly when the appearance changes. */
+@property --ga{syntax:'<color>';inherits:true;initial-value:transparent}
+@property --gb{syntax:'<color>';inherits:true;initial-value:transparent}
+@property --gc{syntax:'<color>';inherits:true;initial-value:transparent}
+@property --fa{syntax:'<color>';inherits:true;initial-value:transparent}
+@property --fb{syntax:'<color>';inherits:true;initial-value:transparent}
+@property --fc{syntax:'<color>';inherits:true;initial-value:transparent}
+@property --glow1{syntax:'<color>';inherits:true;initial-value:transparent}
+@property --glow2{syntax:'<color>';inherits:true;initial-value:transparent}
+
+:root{--ga:#E3EEFB;--gb:#F1F4F6;--gc:#D6E6F8;--glow1:rgba(15,76,138,.20);--glow2:rgba(109,174,240,.30);--fa:#CFE1F5;--fb:#E3EAEF;--fc:#B5D1EE}
+:root[data-theme="dark"]{--ga:#0E3466;--gb:#08182B;--gc:#0C3463;--glow1:rgba(70,150,240,.30);--glow2:rgba(35,105,200,.34);--fa:#0F3C70;--fb:#0F1F31;--fc:#14509A}
+html{background:var(--paper)}
+body{background:none;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(65% 55% at 88% 0%,var(--glow1),transparent 70%),radial-gradient(55% 50% at 0% 100%,var(--glow2),transparent 70%),linear-gradient(160deg,var(--ga),var(--gb) 50%,var(--gc));
+  transition:--ga .45s,--gb .45s,--gc .45s,--glow1 .45s,--glow2 .45s}
+.alt{background:color-mix(in srgb,var(--paper-2) 55%,transparent)}
+.alt .folder-body{background:var(--paper-2)}
+footer{background:linear-gradient(110deg,var(--fa),var(--fb) 55%,var(--fc));transition:--fa .45s,--fb .45s,--fc .45s}
+.site{background:color-mix(in srgb,var(--paper) 70%,transparent);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2)}
