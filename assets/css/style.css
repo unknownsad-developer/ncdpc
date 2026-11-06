@@ -264,6 +264,8 @@ footer{background:var(--paper-2);border-top:1px solid var(--rule);padding-block:
 .foot .tagline{font:700 1.3rem/1.2 var(--f-display);letter-spacing:-.01em}
 .foot a{color:var(--ink);text-decoration:none}
 .foot a:hover{color:var(--accent)}
+.foot .soc-link{display:inline-flex;align-items:center;gap:10px;align-self:flex-start}
+.soc-link svg{width:18px;height:18px;flex:none}
 .foot small{font:400 12px/1.5 var(--f-mono);letter-spacing:.04em;color:var(--ink-2)}
 .foot h4{font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
 
@@ -363,3 +365,7 @@ html.theme-anim .slide{transition:opacity .9s ease!important}
 html.theme-anim .theme-btn{transition:transform .2s ease,border-color .45s ease,background-color .45s ease,color .45s ease,box-shadow .45s ease!important}
 html.theme-anim .theme-btn svg{transition:transform .5s cubic-bezier(.4,0,.2,1),opacity .35s ease!important}
 @media (prefers-reduced-motion:reduce){.theme-btn,.theme-btn svg{transition:none}}
+.card dd a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:4px;transition:color .2s}
+.card dd a:hover{color:var(--accent)}
+.apply-card{display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:clamp(22px,4vw,34px);border:1px solid var(--rule)}
+.apply-card p{margin:0}
