@@ -1,0 +1,21 @@
+name: Update photo list
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/photos/**'
+      - 'assets/slideshow/**'
+permissions:
+  contents: write
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/make-photo-list.py
+      - name: Commit the list if it changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add assets/js/photo-list.js
+          git diff --cached --quiet || (git commit -m "Update photo list" && git push)

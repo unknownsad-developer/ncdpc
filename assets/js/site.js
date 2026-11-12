@@ -85,7 +85,7 @@
     return fromGithubInner(g).catch(function (e) { e.gh = ghWhy(e, g); throw e; });
   }
   // every file path in the repository (one GitHub request, remembered for 2 minutes, shared by the whole page)
-  var treePromise = null;
+  var treePromise = null, treeFallback = false;
   function githubTree(g) {
     if (treePromise) return treePromise;
     var key = 'ncd-gh2-' + g.owner + '/' + g.repo, cached = null;
@@ -96,8 +96,16 @@
         .then(function (j) {
           var paths = (j.tree || []).filter(function (x) { return x.type === 'blob'; }).map(function (x) { return x.path; });
           try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), paths: paths })); } catch (e) {}
+          try { localStorage.setItem(key, JSON.stringify({ t: Date.now(), paths: paths })); } catch (e) {}
           return paths;
         });
+    // GitHub refused or is unreachable (too many requests, offline): use the saved copy of the file list instead
+    treePromise = treePromise.catch(function (err) {
+      var saved = Array.isArray(window.NCD_PHOTO_LIST) && window.NCD_PHOTO_LIST.length ? window.NCD_PHOTO_LIST : null;
+      try { var old = JSON.parse(localStorage.getItem(key)); if (!saved && old && old.paths && old.paths.length) saved = old.paths; } catch (e) {}
+      if (saved) { treeFallback = true; return saved; }
+      throw err;
+    });
     treePromise.catch(function () { treePromise = null; });   // a failed request may be tried again
     return treePromise;
   }
