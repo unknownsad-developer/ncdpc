@@ -109,26 +109,30 @@
     treePromise.catch(function () { treePromise = null; });   // a failed request may be tried again
     return treePromise;
   }
-  function fromGithubInner(g) {
-    var tree = githubTree(g).then(function (all) {
-      return all.filter(function (p) { return p.indexOf(FOLDER) === 0; }).map(function (p) { return p.slice(FOLDER.length); });
+  function eventsFromPaths(all) {
+    var paths = all.filter(function (p) { return p.indexOf(FOLDER) === 0; }).map(function (p) { return p.slice(FOLDER.length); });
+    var byDir = {};
+    paths.forEach(function (p) {
+      var parts = p.split('/');
+      if (parts.length !== 2 || parts[1].charAt(0) === '.' || !IMG_RE.test(parts[1])) return;   // photos one level deep only
+      (byDir[parts[0]] = byDir[parts[0]] || []).push(parts[1]);
     });
-    return tree.then(function (paths) {
-      var byDir = {};
-      paths.forEach(function (p) {
-        var parts = p.split('/');
-        if (parts.length !== 2 || parts[1].charAt(0) === '.' || !IMG_RE.test(parts[1])) return;   // photos one level deep only
-        (byDir[parts[0]] = byDir[parts[0]] || []).push(parts[1]);
-      });
-      var list = Object.keys(byDir).map(function (dir) {
-        var info = parseFolder(dir), files = byDir[dir].sort(naturalSort);
-        var photos = files.map(function (f) { return { src: FOLDER + encodeURIComponent(dir) + '/' + encodeURIComponent(f), w: 0, h: 0, time: 0 }; });
-        return { slug: dir, title: info.title, date: info.date, count: photos.length, photos: photos, cover: photos[0].src };
-      });
-      if (!list.length) throw new Error('no photos found');
-      list.sort(function (a, b) { return a.date === b.date ? naturalSort(b.slug, a.slug) : (a.date < b.date ? 1 : -1); });
-      return list;
+    var list = Object.keys(byDir).map(function (dir) {
+      var info = parseFolder(dir), files = byDir[dir].sort(naturalSort);
+      var photos = files.map(function (f) { return { src: FOLDER + encodeURIComponent(dir) + '/' + encodeURIComponent(f), w: 0, h: 0, time: 0 }; });
+      return { slug: dir, title: info.title, date: info.date, count: photos.length, photos: photos, cover: photos[0].src };
     });
+    if (!list.length) throw new Error('no photos found');
+    list.sort(function (a, b) { return a.date === b.date ? naturalSort(b.slug, a.slug) : (a.date < b.date ? 1 : -1); });
+    return list;
+  }
+  function fromGithubInner(g) { return githubTree(g).then(eventsFromPaths); }
+  // Method 2b (any other host, such as Netlify or Cloudflare Pages): the saved list in assets/js/photo-list.js.
+  // tools/make-photo-list.py rewrites it whenever you add or remove photos.
+  function fromManifest(err) {
+    var l = window.NCD_PHOTO_LIST;
+    if (Array.isArray(l) && l.length) { try { return Promise.resolve(eventsFromPaths(l)); } catch (e) {} }
+    return Promise.reject(err || new Error('no list'));
   }
 
   // Method 3 (no PHP, not GitHub): events come from assets/js/events-data.js; photos are numbered 1.jpg, 2.jpg ...
@@ -174,7 +178,7 @@
 
   var dataPromise = null;
   function getEvents() {
-    if (!dataPromise) dataPromise = (/\.github\.io$/i.test(location.hostname) ? Promise.reject(new Error('github')) : fromPhp()).catch(fromGithub).catch(function (e) {
+    if (!dataPromise) dataPromise = (/\.github\.io$/i.test(location.hostname) ? Promise.reject(new Error('github')) : fromPhp()).catch(fromGithub).catch(fromManifest).catch(function (e) {
         if (e && e.gh && !(Array.isArray(window.NCD_EVENTS) && window.NCD_EVENTS.length)) { whyNone = e.gh; return []; }
         return staticEvents();
       });
@@ -216,6 +220,12 @@
         }).map(function (p) { return p.slice(SLIDES.length); }).sort(naturalSort)
           .map(function (f) { return { src: SLIDES + encodeURIComponent(f), w: 0, h: 0, time: 0 }; });
       }).catch(function () { return []; });
+    } else if (Array.isArray(window.NCD_PHOTO_LIST) && window.NCD_PHOTO_LIST.length) {
+      chosen = Promise.resolve(window.NCD_PHOTO_LIST.filter(function (p) {
+        var rest = p.slice(SLIDES.length);
+        return p.indexOf(SLIDES) === 0 && rest.indexOf('/') < 0 && rest.charAt(0) !== '.' && IMG_RE.test(rest);
+      }).map(function (p) { return p.slice(SLIDES.length); }).sort(naturalSort)
+        .map(function (f) { return { src: SLIDES + encodeURIComponent(f), w: 0, h: 0, time: 0 }; }));
     } else {
       chosen = fromNumbers(SLIDES).catch(function () { return []; });
     }
