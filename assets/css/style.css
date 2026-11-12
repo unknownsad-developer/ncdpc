@@ -405,3 +405,34 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .alt .folder-body{background:var(--paper-2)}
 footer{background:linear-gradient(110deg,var(--fa),var(--fb) 55%,var(--fc));transition:--fa .45s,--fb .45s,--fc .45s}
 .site{background:color-mix(in srgb,var(--paper) 70%,transparent);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2)}
+
+/* ===== Soft light appearance: Meadow (mint, cream, blush). Only the light version is changed; dark is untouched. ===== */
+:root[data-theme="light"]{
+  --paper:#FBFAF4; --paper-2:#F0F4EA; --ink:#21302B; --ink-2:#52645C; --rule:#DEE5D6;
+  --accent:#237565; --on-accent:#FFFFFF; --band:#E2F1E8; --on-band:#21302B; --strip:#F0F4EA;
+  --ga:#E3F3EA; --gb:#FFF6E3; --gc:#FCE7E0; --glow1:rgba(90,190,150,.26); --glow2:rgba(255,190,150,.30);
+  --fa:#DDEFE4; --fb:#F5EFDC; --fc:#F8E3DC;
+  --soft:rgba(35,90,70,.14); --btn:linear-gradient(135deg,#287F6D,#1E6657);
+}
+:root[data-theme="light"] .btn,:root[data-theme="light"] .band .btn,:root[data-theme="light"] .folder:hover .folder-tab{background:var(--btn);color:#fff;border:0;border-radius:999px;box-shadow:0 8px 20px -8px var(--soft)}
+:root[data-theme="light"] .btn:hover{box-shadow:0 12px 26px -8px var(--soft)}
+:root[data-theme="light"] .btn-ghost,:root[data-theme="light"] .band .btn-ghost{background:rgba(255,255,255,.6);color:var(--ink);border:1.5px solid var(--rule);box-shadow:none}
+:root[data-theme="light"] h1 .b{background:linear-gradient(95deg,#1F7A68,#C2705A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;width:fit-content;padding-bottom:.14em;margin-bottom:-.14em}
+:root[data-theme="light"] .vf{border:0;border-radius:22px;box-shadow:0 24px 50px -22px var(--soft)}
+:root[data-theme="light"] .folder-body{border:1px solid var(--rule);border-radius:0 20px 20px 20px;background:rgba(255,255,255,.72);box-shadow:0 14px 34px -18px var(--soft)}
+:root[data-theme="light"] .alt .folder-body{background:rgba(255,255,255,.72)}
+:root[data-theme="light"] .folder-tab{background:var(--btn);border-radius:12px 12px 0 0;clip-path:none;padding:8px 18px 7px}
+:root[data-theme="light"] .folder-cover{border-radius:14px}
+:root[data-theme="light"] .folder:hover .folder-body{box-shadow:0 20px 40px -16px var(--soft)}
+:root[data-theme="light"] .card,:root[data-theme="light"] .apply-card{border:1px solid var(--rule);border-radius:22px;background:rgba(255,255,255,.75);box-shadow:0 16px 36px -22px var(--soft)}
+:root[data-theme="light"] .band{background:linear-gradient(135deg,#E3F3EA,#E2F1E8 55%,#FCE7E0)}
+:root[data-theme="light"] .band .eyebrow,:root[data-theme="light"] .steps li::before{color:var(--accent)}
+:root[data-theme="light"] .steps li{border-top-color:var(--rule)}
+:root[data-theme="light"] .band :focus-visible{outline-color:var(--accent)}
+:root[data-theme="light"] .rhythm,:root[data-theme="light"] .qa,:root[data-theme="light"] .rules{border-top-width:1px;border-top-color:var(--rule)}
+:root[data-theme="light"] .plan{border-radius:20px;border-top-width:1px;border-top-color:var(--rule)}
+:root[data-theme="light"] .person-ph{border-radius:20px;border-bottom:0;box-shadow:0 14px 30px -18px var(--soft)}
+:root[data-theme="light"] .back-btn{border-radius:999px;border-color:var(--rule)}
+:root[data-theme="light"] .more{border-bottom-width:1px}
+:root[data-theme="light"] .strip{background:linear-gradient(90deg,#E3F3EA,#FFF6E3,#FCE7E0);color:var(--accent)}
+:root[data-theme="light"] .site{border-bottom-color:transparent;box-shadow:0 10px 30px -22px var(--soft)}
