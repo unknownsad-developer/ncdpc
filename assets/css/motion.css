@@ -1,0 +1,72 @@
+/* NCD Photography Club: motion layer. Smooth entrances, hover polish and slow ambient movement.
+   Everything here is switched off for visitors who ask their device for reduced motion, and
+   the page stays fully readable if this file or motion.js does not load. */
+@media (prefers-reduced-motion:no-preference){
+
+  /* page-to-page fade (browsers that support it) */
+  @view-transition{navigation:auto}
+  ::view-transition-old(root){animation:moFadeOut .28s ease both}
+  ::view-transition-new(root){animation:moFadeIn .42s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes moFadeOut{to{opacity:0}}
+  @keyframes moFadeIn{from{opacity:0}}
+
+  /* hero: the copy rises in one line after another, the viewfinder settles in */
+  @keyframes moUp{from{opacity:0;transform:translate3d(0,26px,0)}to{opacity:1;transform:none}}
+  @keyframes moScale{from{opacity:0;transform:translate3d(0,24px,0) scale(.96)}to{opacity:1;transform:none}}
+  .hero-copy>*,.pagehead .wrap>*{animation:moUp .95s cubic-bezier(.2,.7,.2,1) both}
+  .hero-copy>:nth-child(1){animation-delay:.05s}.hero-copy>:nth-child(2){animation-delay:.16s}
+  .hero-copy>:nth-child(3){animation-delay:.3s}.hero-copy>:nth-child(4){animation-delay:.42s}
+  .hero-copy>:nth-child(5){animation-delay:.54s}
+  .pagehead .wrap>:nth-child(2){animation-delay:.12s}.pagehead .wrap>:nth-child(3){animation-delay:.22s}
+  .vfwrap{animation:moScale 1.1s cubic-bezier(.2,.7,.2,1) .25s both}
+
+  /* scroll reveal (motion.js adds .mo to <html>, then .rv to the items, then .in as they scroll into view) */
+  .mo .rv{opacity:0;transform:translate3d(0,30px,0);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s);will-change:opacity,transform}
+  .mo .rv.in{opacity:1;transform:none}
+  .mo .rv.done{will-change:auto}
+
+  /* slideshow: a slow push-in on the photo that is showing */
+  .slide{transform:scale(1);transition:opacity .9s ease,transform 0s linear .9s}
+  .slide.on{transform:scale(1.07);transition:opacity .9s ease,transform 11s linear}
+
+  /* buttons: a soft light sweep, and a gentle press */
+  .btn{position:relative;overflow:hidden;isolation:isolate;transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
+  .btn::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.38) 50%,transparent 65%);transform:translateX(-130%);transition:transform .75s cubic-bezier(.2,.7,.2,1)}
+  .btn:hover::after{transform:translateX(130%)}
+  .btn:active{transform:translateY(0) scale(.97)}
+
+  /* navigation: the underline slides in */
+  .nav a:not(.btn){position:relative;border-bottom-color:transparent!important}
+  .nav a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;border-radius:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+  .nav a:not(.btn):hover::after,.nav a[aria-current="page"]:not(.btn)::after{transform:scaleX(1)}
+
+  /* header: gains a soft shadow once the page is scrolled */
+  .site{transition:box-shadow .35s ease,background-color .35s ease}
+  .site.scrolled{box-shadow:0 12px 32px -20px rgba(8,24,43,.45)}
+
+  /* cards and photos: lift, and a calmer zoom */
+  .folder-body,.card,.person-ph,.gal-item{transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s ease}
+  .folder:hover .folder-body{transform:translateY(-8px)}
+  .folder-cover img{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+  .folder:hover .folder-cover img{transform:scale(1.07)}
+  .person:hover .person-ph{transform:translateY(-6px)}
+  .person-ph img,.gal-item img{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+  .person:hover .person-ph img{transform:scale(1.05)}
+  .gal-item:hover{transform:translateY(-4px)}
+  .gal-item:hover img{transform:scale(1.05)}
+
+  /* FAQ: the plus turns into a cross */
+  .qa summary::after{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+  .qa details[open] summary::after{transform:rotate(45deg)}
+
+  /* slow floating light behind the page */
+  .mo-orbs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .mo-orbs i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;will-change:transform}
+  .mo-orbs i:nth-child(1){width:46vmax;height:46vmax;left:-12vmax;top:-10vmax;background:var(--glow2);animation:moDriftA 26s ease-in-out infinite alternate}
+  .mo-orbs i:nth-child(2){width:40vmax;height:40vmax;right:-12vmax;top:30vh;background:var(--glow1);animation:moDriftB 32s ease-in-out infinite alternate}
+  @keyframes moDriftA{to{transform:translate3d(14vmax,10vmax,0) scale(1.15)}}
+  @keyframes moDriftB{to{transform:translate3d(-12vmax,-8vmax,0) scale(1.2)}}
+
+  /* thin progress line along the top while reading */
+  .mo-progress{position:fixed;left:0;top:0;right:0;height:3px;z-index:60;transform:scaleX(0);transform-origin:left;pointer-events:none;background:linear-gradient(90deg,var(--accent),var(--film))}
+}
