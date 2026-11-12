@@ -97,7 +97,7 @@ h1 .b{color:var(--accent);display:block}
 
 /* viewfinder */
 .vfwrap{display:flex;flex-direction:column;gap:12px;min-width:0}
-.vf{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:#050B12;color:var(--on-img);border:1px solid var(--rule)}
+.vf{position:relative;aspect-ratio:4/3;max-width:100%;overflow:hidden;background:#050B12;color:var(--on-img);border:1px solid var(--rule)}
 .slide.on{opacity:1}
 .vf .c{position:absolute;width:26px;height:26px;border:0 solid var(--on-img);opacity:.9;pointer-events:none}
 .vf .tl{left:14px;top:14px;border-width:2px 0 0 2px}

@@ -7,8 +7,8 @@ Put the photos you want in the big slideshow on the home page into THIS folder
         01-sports-day.jpg  ->  first
         02-science-fest.jpg ->  second
   - Up to 12 photos are shown. Extra photos are ignored.
-  - Best size: landscape (wider than tall), about 1600 x 900 pixels (16:9), under 1 MB each.
-    The slideshow frame is 16:9, so other shapes are cropped to fit.
+  - Best size: landscape (wider than tall), about 1600 x 1200 pixels (4:3), under 1 MB each.
+    The slideshow frame is 4:3, so other shapes are cropped to fit.
   - Allowed endings: .jpg .jpeg .png .webp .gif .avif
   - Photos must sit directly in this folder (no folders inside it).
   - This folder is empty of photos? Then the slideshow shows the 6 newest event photos, as before.
